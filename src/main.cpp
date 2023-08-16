@@ -66,12 +66,11 @@ void loop()
   while (BLEisConnected)
   {
     // Delay to wait for enough input, since we have a limited transmission buffer
-    delay(8000);
     char buf[64];
     
     // Read value from pin A0 of the nRF52832
     //int num = analogRead(A0);
-    double num = random(0,1001)/1000.0;
+    double num = random(0,1001)/100.0;
     Serial.print(num);
 
     // Convert integer value of "num" to String, since ble only works with characters, not integers
@@ -92,6 +91,7 @@ void loop()
     ch = (uint8_t) bleuart.read();
     Serial.write(ch);
   }
+  delay(8000);
 }
 
 // callback invoked when central connects
@@ -151,7 +151,7 @@ void setup()
 
   Bluefruit.begin();
   Bluefruit.setTxPower(4);    // Check bluefruit.h for supported values
-  Bluefruit.setName("Knee Bandage");
+  Bluefruit.setName("Leg Bandage");
   //Bluefruit.setName(getMcuUniqueID()); // useful testing with multiple central connections
   Bluefruit.Periph.setConnectCallback(connect_callback);
   Bluefruit.Periph.setDisconnectCallback(disconnect_callback);
